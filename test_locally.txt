@@ -1,0 +1,8 @@
+# Terminal 1: Run ROS master
+roscore
+
+# Terminal 2: Run the detector (mock)
+python3 src/deepstream_bird_detector.py
+
+# Terminal 3: Listen to the topic
+rostopic echo /bird_detection
