@@ -21,7 +21,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'bird_publisher = ros_interface.bird_publisher:main',
+            'bird_publisher = bird_detection_app.bird_publisher:main',
         ],
     },
 )

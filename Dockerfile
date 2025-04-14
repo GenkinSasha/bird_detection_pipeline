@@ -37,14 +37,8 @@ RUN git clone https://github.com/ultralytics/yolov5 && \
     pip3 install --no-cache-dir -r yolov5/requirements.txt && \
     python3 yolov5/export.py --weights yolov5s.pt --include onnx
 
-# upgrade setuptools
-RUN apt-get update && \
-    apt-get install -y python3.10-venv && \
-    python3.10 -m venv /opt/venv && \
-    . /opt/venv/bin/activate && \
-    pip install --upgrade pip setuptools wheel
-
-ENV PATH="/opt/venv/bin:$PATH"
+# pin setuptools version to 68
+RUN pip install --no-cache-dir setuptools==68.2.2
 
 # Copy bird detection app
 COPY bird_detection_app /opt/bird_detection_app
@@ -61,6 +55,8 @@ COPY media /opt/media
 COPY models /opt/models
 
 # Launch app at container start
-CMD source /opt/ros/$ROS_DISTRO/setup.bash && \
-    source install/setup.bash && \
-    ros2 run bird_detection_app bird_publisher /opt/media/birds.mp4 /opt/models/config_infer_primary.txt
+#CMD source /opt/ros/$ROS_DISTRO/setup.bash && \
+#    source install/setup.bash && \
+#    ros2 run bird_detection_app bird_publisher /opt/media/birds.mp4 /opt/models/config_infer_primary.txt
+
+CMD ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash && source install/setup.bash && ros2 run bird_detection_app bird_publisher /opt/media/birds.mp4 /opt/models/config_infer_primary.txt"]
