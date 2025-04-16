@@ -32,7 +32,7 @@ text-size=12
 text-color=1;1;1;1;
 bbox-color=1;0;0;1;
 
-[nvinfer]
+[primary-gie]
 enable=1
 gpu-id=0
 batch-size=1
